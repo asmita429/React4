@@ -20,6 +20,29 @@ export default function TodoList() {
   let deleteTodo = (id) => {
     setTodos(() => todos.filter((prevTodo) => prevTodo.id != id));
   };
+  // change all items to uppercase/ update all items
+  let upperCaseAll = () => {
+    // let arr = todos.map((todo) => todo.task.toUpperCase());
+    setTodos((prevTask) =>
+      prevTask.map((todo) => {
+        return { ...todo, task: todo.task.toUpperCase() };
+      })
+    );
+  };
+  let updateItem = (id) => {
+    setTodos((prevTask) =>
+      prevTask.map((todo) => {
+        if (todo.id == id) {
+          return {
+            ...todo,
+            task: todo.task.toUpperCase(),
+          };
+        } else {
+          return todo;
+        }
+      })
+    );
+  };
   return (
     <div>
       <input
@@ -40,9 +63,14 @@ export default function TodoList() {
             <span>{todo.task}</span>
             &nbsp;&nbsp;&nbsp;
             <button onClick={() => deleteTodo(todo.id)}>delete</button>
+            &nbsp;&nbsp;&nbsp;
+            <button onClick={() => updateItem(todo.id)}>uppercase</button>
           </li>
         ))}
       </ul>
+      <br />
+      <br />
+      <button onClick={upperCaseAll}>Uppercase All</button>
     </div>
   );
 }
